@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 
 @app.teardown_appcontext
-def teardown():
+def teardown(exception):
     """Closes the database after using it"""
     storage.close()
 
@@ -19,7 +19,9 @@ def teardown():
 def states():
     """Shows a dynamic generated html with the list of all the states"""
     dic = storage.all(States)
-    return render_template("states_list.html", dic)
+    list = dic.values()
+    list = sorted(list, key=lambda k: k.name)
+    return render_template("states_list.html", list=list)
 
 
 if __name__ == "__main__":

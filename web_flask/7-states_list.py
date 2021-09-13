@@ -11,11 +11,13 @@ app = Flask(__name__)
 
 @app.teardown_appcontext
 def teardown():
+    """Closes the database after using it"""
     storage.close()
 
 
 @app.route('/states_list', strict_slashes=False)
 def states():
+    """Shows a dynamic generated html with the list of all the states"""
     dic = storage.all(States)
     return render_template("states_list.html", dic)
 

@@ -16,12 +16,10 @@ def teardown(exception):
 
 
 @app.route('/states_list', strict_slashes=False)
-def states():
-    
+def states():   
     """Shows a dynamic generated html with the list of all the states"""
-    dic = storage.all(State).values()
-    listt = sorted(states, key=lambda k: k.name)
-    return render_template("states_list.html", list=listt)
+    states = storage.all("State").values()
+    return render_template("7-states_list.html", states=states)
 
 
 if __name__ == "__main__":

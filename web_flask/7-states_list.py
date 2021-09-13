@@ -16,7 +16,7 @@ def teardown(exception):
 
 
 @app.route('/states_list', strict_slashes=False)
-def states():   
+def states():  
     """Shows a dynamic generated html with the list of all the states"""
     states = storage.all("State").values()
     return render_template("7-states_list.html", states=states)

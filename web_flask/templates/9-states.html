@@ -4,23 +4,22 @@
 <TITLE>HBNB</TITLE>
 </HEAD>
 <BODY>
-  {%- set ns = namespace(found=false) -%}
-  {% for state in states|sort(attribute="name") -%}
-      {% if id == state.id %}
-          {% set ns.found = true -%}
+  {%- macro input() -%}<h1>Not found</h1>{%- endmacro %}
+  {%- for state in states|sort(attribute="name") -%}
+      {%- if id == state.id %}
+          {% macro input() -%}{%- endmacro %}
           <H1>State: {{ state.name }}</H1>
           <H3>Cities:</H3>
           <ul>{% for city in cities|sort(attribute="name") -%}
-                  {% if city.state_id == state.id %}
+                  {%- if city.state_id == state.id %}
                       <li>{{ city.id }}: <b>{{ city.name }}</b></li>
                   {%- endif %}
               {%- endfor %}
 	  </ul>
-      {% endif %}
+      {%- endif %}
   {%- endfor %}
-  {% if ns.found -%}
-    <h1>Not found!</h1>
-  {% endif -%}
+
+{{ input() }}
 
 </BODY>
 </HTML>
